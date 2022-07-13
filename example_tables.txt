@@ -1,0 +1,63 @@
+
+mtg_scheduler=# \dt;
+               List of relations
+ Schema |         Name         | Type  | Owner
+--------+----------------------+-------+-------
+ public | knex_migrations      | table | tom
+ public | knex_migrations_lock | table | tom
+ public | person               | table | tom
+ public | session              | table | tom
+ public | session_entry        | table | tom
+(5 rows)
+
+mtg_scheduler=# select * from knex_migrations;
+ id | name | batch | migration_time
+----+------+-------+----------------
+(0 rows)
+
+mtg_scheduler=# select * from knex_migrations_lock;
+ index | is_locked
+-------+-----------
+     1 |         0
+(1 row)
+
+mtg_scheduler=# select * from person;
+ id | users_id | username |   email   | firstname | lastname  |  roomname   |          created_at           |          updated_at           |                       password_digest                        |      mtg_types      | self_intro |   photo
+----+----------+----------+-----------+-----------+-----------+-------------+-------------------------------+-------------------------------+--------------------------------------------------------------+---------------------+------------+-----------
+  5 |          | juk      | jj@j.com  | jukie     | juk       | QPf7rK1Psbk | 2019-12-12 06:36:44.292059-05 | 2019-12-12 06:36:44.292059-05 | $2a$10$TISC7zyUk1M4XORNhUhZBeLyR3vfSTCcWmK1TwGySGcj2JAc5gxii | Dutch, Badminton    | juk.txt    | juk.jpg
+  3 |          | jim      | jj@j.com  | Jim       | James     | 3dA5-Pgdo0w | 2019-12-08 03:33:37.53818-05  | 2019-12-08 03:33:37.53818-05  | $2a$10$kcnF7LSkVzTzd/r5Ix25/uM8NLp1fw7g1o8gq96gXaNSZTpdjccqm | French, Curling     | jim.txt    | jim.jpg
+ 55 |          | helen    | h@h.com   | Helen     | Cleveland | L2fpMDEol9Q | 2022-06-08 18:37:00.25755-04  | 2022-06-08 18:37:00.25755-04  | $2a$10$1NB7R/xD9NLi6gXQ4Ko8sO5WVkjN7A/73oPyawslZi38eIwzRTrdS | Sales               | helen.txt  | helen.jpg
+  7 |          | jenny    | jj@jj.com | Jenny     | Dill      | E1IsLK9j1Hk | 2020-01-02 05:48:30.242241-05 | 2020-01-02 05:48:30.242241-05 | $2a$10$3qSy9QNgBKo1cVdcvd.6G.//ufCks9TSz69rkHgyiPnQKU12UUW7q | Basketweaving, Polo | jenny.txt  | jenny.jpg
+  2 |          | bill     | b@b.com   | Bill      | Bubu      | AGUXlatlCm8 | 2019-11-29 08:41:19.750638-05 | 2019-11-29 08:41:19.750638-05 | $2a$10$TRJQjDCKBz4BKTE8kxKSn.ydecMncBCGfcagVrBY7SV2sWcOw4lL2 | Thursday scrum      | bill.txt   | bill.jpg
+  8 |          | tim      | t@t.com   | Tim       | Thames    | iUOWsdy2szI | 2020-01-03 10:55:45.613954-05 | 2020-01-03 10:55:45.613954-05 | $2a$10$2tv8kKJ6yqc3rExedMJ85e8pdUkD87fbvXVon6Sx92IgbrpbFS0Du | Shogi, Go           | tim.txt    | tim.jpg
+(6 rows)
+
+mtg_scheduler=# select * from session;
+ id  |    mtg_types     | students_string |  weekday  |     class_datetime     | week_number | number_of_weeks | selected_weekdays | mtg_requester |          created_at           |          updated_at           |        endtime         | first_names_string
+-----+------------------+-----------------+-----------+------------------------+-------------+-----------------+-------------------+---------------+-------------------------------+-------------------------------+------------------------+--------------------
+ 221 | Firmware         | tim             | Monday    | 2022-08-08 10:00:00-04 |           1 |               1 | Monday            | helen         | 2022-06-08 18:38:05.82357-04  | 2022-06-08 18:38:05.82357-04  | 2022-08-08 11:00:00-04 | Tim
+ 222 | Test Engineering | jim             | Tuesday   | 2023-06-06 16:00:00-04 |           1 |               1 | Tuesday           | bill          | 2022-06-10 15:25:38.460238-04 | 2022-06-10 15:25:38.460238-04 | 2023-06-06 17:00:00-04 | Jim
+ 223 | QA               | helen           | Friday    | 2022-06-10 15:30:00-04 |           1 |               1 | Friday            | bill          | 2022-06-10 15:28:34.610684-04 | 2022-06-10 15:28:34.610684-04 | 2022-06-10 16:30:00-04 | Helen
+ 224 | New Project      | tim             | Monday    | 2022-09-05 10:00:00-04 |           1 |               1 | Monday, Wednesday | bill          | 2022-06-13 20:45:12.837487-04 | 2022-06-13 20:45:12.837487-04 | 2022-09-05 13:00:00-04 | Tim
+ 225 | New Project      | tim             | Wednesday | 2022-09-07 10:00:00-04 |           1 |               1 | Monday, Wednesday | bill          | 2022-06-13 20:45:12.837487-04 | 2022-06-13 20:45:12.837487-04 | 2022-09-07 13:00:00-04 | Tim
+ 226 | Firmware         | jenny           | Monday    | 2023-05-15 08:00:00-04 |           1 |               2 | Monday            | tim           | 2022-06-13 20:47:59.03677-04  | 2022-06-13 20:47:59.03677-04  | 2023-05-15 16:00:00-04 | Jenny
+ 227 | Firmware         | jenny           | Monday    | 2023-05-22 08:00:00-04 |           2 |               2 | Monday            | tim           | 2022-06-13 20:47:59.03677-04  | 2022-06-13 20:47:59.03677-04  | 2023-05-22 16:00:00-04 | Jenny
+ 229 | Test Engineering | juk             | Tuesday   | 2022-07-05 20:45:00-04 |           1 |               1 | Tuesday           | bill          | 2022-07-05 20:34:27.174612-04 | 2022-07-05 20:34:27.174612-04 | 2022-07-05 21:00:00-04 | jukie
+ 230 | New Project      | jim, jenny      | Monday    | 2022-08-01 13:00:00-04 |           1 |               2 | Monday, Wednesday | bill          | 2022-07-07 21:19:36.521741-04 | 2022-07-07 21:19:36.521741-04 | 2022-08-01 15:00:00-04 | Jim, Jenny
+ 231 | New Project      | jim, jenny      | Wednesday | 2022-08-03 13:00:00-04 |           1 |               2 | Monday, Wednesday | bill          | 2022-07-07 21:19:36.521741-04 | 2022-07-07 21:19:36.521741-04 | 2022-08-03 15:00:00-04 | Jim, Jenny
+ 232 | New Project      | jim, jenny      | Monday    | 2022-08-08 13:00:00-04 |           2 |               2 | Monday, Wednesday | bill          | 2022-07-07 21:19:36.521741-04 | 2022-07-07 21:19:36.521741-04 | 2022-08-08 15:00:00-04 | Jim, Jenny
+ 233 | New Project      | jim, jenny      | Wednesday | 2022-08-10 13:00:00-04 |           2 |               2 | Monday, Wednesday | bill          | 2022-07-07 21:19:36.521741-04 | 2022-07-07 21:19:36.521741-04 | 2022-08-10 15:00:00-04 | Jim, Jenny
+(12 rows)
+
+mtg_scheduler=# select * from session_entry;
+ id  |          created_at           |          updated_at           | user  |                                                               entry
+-----+-------------------------------+-------------------------------+-------+-----------------------------------------------------------------------------------------------------------------------------------
+ 169 | 2022-06-08 18:38:05.862186-04 | 2022-06-08 18:38:05.862186-04 | helen | Firmware meeting with tim on Monday at 10:00 a.m. until 11:00 a.m. beginning on Monday, August 8 for 1 week(s)
+ 170 | 2022-06-10 15:25:38.502423-04 | 2022-06-10 15:25:38.502423-04 | bill  | Test Engineering meeting with jim on Tuesday at 4:00 p.m. until 5:00 p.m. beginning on Tuesday, June 6 for 1 week(s)
+ 171 | 2022-06-10 15:28:34.640192-04 | 2022-06-10 15:28:34.640192-04 | bill  | QA meeting with helen on Friday at 3:30 p.m. until 4:30 p.m. beginning on Friday, June 10 for 1 week(s)
+ 172 | 2022-06-13 20:45:12.871908-04 | 2022-06-13 20:45:12.871908-04 | bill  | New Project meeting with tim on Monday, Wednesday at 10:00 a.m. until 1:00 p.m. beginning on Monday, September 5 for 1 week(s)
+ 173 | 2022-06-13 20:47:59.075195-04 | 2022-06-13 20:47:59.075195-04 | tim   | Firmware meeting with jenny on Monday at 8:00 a.m. until 4:00 p.m. beginning on Monday, May 15 for 2 week(s)
+ 174 | 2022-07-05 20:33:18.998207-04 | 2022-07-05 20:33:18.998207-04 | bill  | Test Engineering meeting with juk on Tuesday at 8:45 p.m. until 10:00 p.m. beginning on Tuesday, July 5 for 1 week(s)
+ 175 | 2022-07-05 20:34:27.187412-04 | 2022-07-05 20:34:27.187412-04 | bill  | Test Engineering meeting with juk on Tuesday at 8:45 p.m. until 9:00 p.m. beginning on Tuesday, July 5 for 1 week(s)
+ 176 | 2022-07-07 21:19:36.536227-04 | 2022-07-07 21:19:36.536227-04 | bill  | New Project meeting with jim, jenny on Monday, Wednesday at 1:00 p.m. until 3:00 p.m. beginning on Monday, August 1 for 2 week(s)
+(8 rows)
