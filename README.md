@@ -5,11 +5,10 @@ online whiteboard in your browser on desktop, tablet, or smartphone.
 
 * Users can be selected conveniently in drop-down menus when scheduling meetings. 
 * Personalized meeting times and dates are displayed for each user. 
-* Users can share an online real-time whiteboard.
 * Sign up and Login authenticates users and keeps track of schedules between logins.
 * Content Security Policy protects the site from inline script and style hacks. 
 
-This project uses React, Javascript, NodeJS, Express, Nginx, Socket.io, Canvas, PostgreSQL, Knex, Webpack, Flexbox, SCSS, and JSON Web Tokens.
+This project uses React, Javascript, NodeJS, Express, Nginx, Socket.IO, Canvas, PostgreSQL, Knex, Webpack, Flexbox, SCSS, and JSON Web Tokens.
 
 <img src="./images/schedulePage.jpg">
 

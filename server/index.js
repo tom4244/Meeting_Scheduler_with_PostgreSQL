@@ -17,7 +17,8 @@ import config from './config';
 import helmet from 'helmet';
 
 //const rateLimit = require("express-rate-limit");
-const fs = require('fs-extra');
+//use fs for https
+//const fs = require('fs-extra');
 const express = require('express');
 const app = require('express')();
 app.use(express.static(__dirname + '/static', { dotfiles: 'allow' } ));
@@ -42,10 +43,10 @@ app.use(helmet({
 		},
 	},
 }));
-// For express-rate-limit:   ------------
-// Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
+// Enable 'trust proxy' if you're behind a reverse proxy (Heroku, Bluemix, Nginx, etc)
 // see https://expressjs.com/en/guide/behind-proxies.html
-app.set('trust proxy', 1);
+// app.set('trust proxy', 1);
+// For express-rate-limit:   
 /*  ************  Rate limiter **************
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -69,7 +70,7 @@ const server = require('https').createServer({
 const	io = require('socket.io')(server, {
   cors: {    
 		//change this to the registered domain
-		origin: "http://***REMOVED***",    
+		origin: "http://localhost",    
 		methods: ["GET", "POST"]
 	}
 });
