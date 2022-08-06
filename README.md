@@ -8,11 +8,11 @@ online whiteboard in your browser on desktop, tablet, or smartphone.
 * Sign up and Login authenticates users and keeps track of schedules between logins.
 * Content Security Policy protects the site from inline script and style hacks. 
 
-This project uses React, Javascript, NodeJS, Express, Nginx, Socket.IO, Canvas, PostgreSQL, Knex, Webpack, Flexbox, SCSS, and JSON Web Tokens.
+This project uses React, Javascript, NodeJS, Express, Nginx, Socket.IO, Canvas, PostgreSQL, Knex, Webpack, Flexbox, SCSS, JSON Web Tokens (JWT), and Content Security Policy (CSP).
 
-<img src="./images/schedulePage.jpg">
+![schedulerpage.png](https://github.com/tom4244/meeting_scheduler/blob/main/src/app/img/schedulerpage.png?raw=true)
 
-<img src="./images/whiteboard.jpg">
+![whiteboard.png](https://github.com/tom4244/meeting_scheduler/blob/main/src/app/img/whiteboard.png?raw=true)
 
 # Installation
 * The site is configured to use an Express server for both http and socket.io with an Nginx server as a reverse proxy. The Express server is configured in the server/index.js file. An example nginx.conf file for Nginx server configuration with the needed "proxy pass" set up is included. 
@@ -26,4 +26,4 @@ This project uses React, Javascript, NodeJS, Express, Nginx, Socket.IO, Canvas, 
 * Run "npm start" to start the Express server.
 
 # Notes
-* To enhance security from inline scripting and styling hacks, inline scripting and styling were minimized and Content Security Policy (CSP) was implemented. Styled Components (SC) was originally used, but since it functions primarily by converting SC statements to inline styling, SC was replaced with SCSS files.
+* To enhance security from inline scripting and styling hacks, inline scripting and styling were minimized and Content Security Policy (CSP) was implemented. Styled Components (SC) was originally used, but since it functions primarily by converting SC statements to inline styling, SC was converted to SCSS files.
