@@ -26,6 +26,7 @@ app.use(express.static(__dirname + '/static', { dotfiles: 'allow' } ));
 // on remote site using https: 'connect-src': ["'self'", 'wss:'], 
 // on local site using http: 'connect-src': ["'self'", 'ws://localhost:3000'], 
 app.use(helmet({
+
 	contentSecurityPolicy: {
         //develop styles with reportOnly true, then
         //insert style hashes from devtools as required
@@ -34,7 +35,7 @@ app.use(helmet({
 		directives: {
       'default-src': ["'self'", "http://localhost/bundle.js"],
       'connect-src': ["'self'", 'ws://localhost:3000'],
-      'style-src': ["'self'", "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='", "'sha256-ctEl8OuKHkM3T5T7zX550onT352rVeYibxCWZgGZKOc='", "'sha256-hu0m/b5xLIfdwdth8xFaJEXxTP03HhyPNySTmdpqWPE='", "'sha256-1BPVcgmqp3mCZInk/uiAJcaFXM0hfmbB3C47p54YXWg='", "'sha256-ggByVJKtZz6IMYd+ezbTxLeW7wbXXFxYuEGoAPwrjIE='", "'sha256-3RfH6bM0wLvmc1QyyIKZkyN2FZUgdz/cVAJJPkosAzY='", "'sha256-fqAGVidUXMpsmNhq+Gbp7dsptG3IdxbBurdkir1IpDU='", "'sha256-6nlHjwxH7Qe2DlXfDC1bB6MpcOpghRhEXPQkVUUB2HE='"],
+      'style-src': ["'self'", "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='", "'sha256-ctEl8OuKHkM3T5T7zX550onT352rVeYibxCWZgGZKOc='", "'sha256-hu0m/b5xLIfdwdth8xFaJEXxTP03HhyPNySTmdpqWPE='", "'sha256-1BPVcgmqp3mCZInk/uiAJcaFXM0hfmbB3C47p54YXWg='", "'sha256-ggByVJKtZz6IMYd+ezbTxLeW7wbXXFxYuEGoAPwrjIE='", "'sha256-3RfH6bM0wLvmc1QyyIKZkyN2FZUgdz/cVAJJPkosAzY='", "'sha256-fqAGVidUXMpsmNhq+Gbp7dsptG3IdxbBurdkir1IpDU='", "'sha256-6nlHjwxH7Qe2DlXfDC1bB6MpcOpghRhEXPQkVUUB2HE='", "'sha256-qJegESxDUsAInOTj8rHDFp4iJMX+vzvSSt8zbYQK2C0='", "'sha256-CdR7VEeWiWs1QulLsmxDijk26UWLxoM04l4aJX3KKgQ='", "'sha256-LtPU6nlHLGk3X8emaRRrI20NxWjGzr4VnyUJPGk7eus='", "'sha256-Q+xqGwERRKcph1G2qmgFndlk/QuBZ6a1qINRRuIvcmM='"],
       'script-src-attr': ["null"],
       'script-src': ["'self'"],
       'img-src': ["'self'", "http://localhost/fonts/", "http://localhost/img/userPhotos", "http://localhost/favicon.ico"],
@@ -42,6 +43,7 @@ app.use(helmet({
       'frame-ancestors': ["'self'"],
 		},
 	},
+	
 }));
 // Enable 'trust proxy' if you're behind a reverse proxy (Heroku, Bluemix, Nginx, etc)
 // see https://expressjs.com/en/guide/behind-proxies.html

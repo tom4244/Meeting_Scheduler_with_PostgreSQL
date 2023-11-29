@@ -9,7 +9,7 @@ var fs = require('fs-extra');
 // configure storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './src/app/img/userPhotos');
+    cb(null, './src/app/img/userPhotos/');
   },
   filename: (req, file, cb) => {
     // The file name will be available as

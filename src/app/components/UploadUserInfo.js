@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useAtom } from "jotai";
+import React, { useState, useEffect, useRef, useReducer } from "react";
 import axios from "axios";
 import AnonymousPic from "../img/userPhotos/anonymous.jpg";
 import WelcomePagePic from "../img/meeting.jpg";
-import { introTextAtom } from "../app.js";
-import { mtgTypesAtom } from "../app.js";
-import { signingUpAtom } from "../app.js";
 import "./styles/userPage.scss";
+import { useAtom } from "jotai";
+import { mtgTypesAtom } from "../app.js";
+import { userAtom } from "../app.js";
+import { userPhotoAtom } from "../app.js";
 
 function UploadUserInfo(props) {
   const [selectedPhotoFile, setSelectedPhotoFile] = useState({});
@@ -14,14 +14,14 @@ function UploadUserInfo(props) {
   const [updatedIndicator, setUpdatedIndicator] = useState("");
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
-  const [introText, setIntroText] = useAtom(introTextAtom);
+  const [introText, setIntroText] = useState("");
+  const [changedPhoto, setChangedPhoto] = useState(false);
+  const [changedMtgTypes, setChangedMtgTypes] = useState(false);
+  const [beginningSelfIntroText, setBeginningSelfIntroText] = useState("");
   const [mtgTypes, setMtgTypes] = useAtom(mtgTypesAtom);
-	const [signingUp, setSigningUp] = useAtom(signingUpAtom);
-	const [changedPhoto, setChangedPhoto] = useState(false);
-	const [changedMtgTypes, setChangedMtgTypes] = useState(false);
-	const [beginningSelfIntroText, setBeginningSelfIntroText] = useState("");
-	const [userPhoto, setUserPhoto] = useState("../img/userPhotos/anonymous.jpg");
-
+  const [user, setUser] = useAtom(userAtom);
+  const [userPhoto, setUserPhoto] = useAtom(userPhotoAtom);
+  
   const tick = () => {
     setEndTime(new Date());
   };
@@ -30,40 +30,19 @@ function UploadUserInfo(props) {
     return axios.get(`/api/selfIntro/${user}`);
   };
 
-  const setSelfIntroTextAtStart = () => {
-    getSelfIntro(props.user)
+  const fetchSelfIntroText = () => {
+    getSelfIntro(user.username)
       .then((data) => {
 				setBeginningSelfIntroText(data.data.text);
       })
-      .catch((error) => console.log("Error in setSelfIntroTextAtStart: ", error));
+      .catch((error) => console.log("Error in fetchSelfIntroText: ", error));
   };
-	
-	useEffect(() => {
-    setSelfIntroTextAtStart();
-	  setUserPhoto(userImg);
-	}, []);
+ 
+  useEffect(() => {
+    fetchSelfIntroText();
+  }); 
 
-	const OnChooseUserPhoto = (e) => {
-    const enteredFile = e.target.files[0];
-    switch (e.target.name) {
-      case "selectedPhotoFile":
-        setSelectedPhotoFile(enteredFile);
-        break;
-      default:
-        setState({ [e.target.name]: e.target.value });
-    }
-    let formData = new FormData();
-    formData.append("user", props.user);
-    formData.append("selectedPhotoFile", enteredFile);
-    axios
-      .post("/api/uploadPhoto", formData)
-      .then((result) => {
-				setChangedPhoto(true);
-      })
-      .catch((errors) =>
-        console.log("Errors in OnChooseUserPhoto: ", errors)
-      );
-  };
+  const inputRef = useRef(null);
 
   const handleIntroTextChange = (event) => {
     setIntroText(event.target.value);
@@ -71,20 +50,21 @@ function UploadUserInfo(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const dataString = { user: props.user, selfIntro: introText };
+    const dataString = { user: user.username, selfIntro: introText };
     axios
       .post("/api/selfIntro", dataString)
       .then((result) => {setSelfIntroUpdated(true)})
       .catch((errors) => console.log("Errors in handleSubmit: ", errors));
   };
   
-	const handleMtgTypesChange = (event) => {
-    setMtgTypes(event.target.value);
+    // setMtgTypes(event.target.value);
+  const handleMtgTypesChange = (event) => {
+    setUser({...user, mtg_types: event.target.value});
   };
 
   const handleMtgTypesClick = (event) => {
     event.preventDefault();
-    const dataString = { user: props.user, mtg_types: mtgTypes };
+    const dataString = { user: user.username, mtg_types: user.mtg_types };
 
     axios
       .post("/api/uploadMtgTypes", dataString)
@@ -100,70 +80,84 @@ function UploadUserInfo(props) {
     return r.keys().map(r);
   };
 
-  const getImages = () => {
-    const rc = require.context("../img/userPhotos", false, /\.jpg$/);
-    const importNames = (rc) =>
-      rc.keys().map((file) => file.match(/[^\/]+$/)[0]);
-    const binaries = importAll(rc);
-    const filenames = importNames(rc);
-    const images = [];
-    for (let i = 0; i < filenames.length; i++) {
-      images.push({
-        name: filenames[i],
-        binary: binaries[i],
-      });
-    }
-    return images;
+  const Fragment = React.Fragment;
+
+  const handleChoosePhotoClick = (e) => {
+	inputRef.current.click();
   };
 
-  const Fragment = React.Fragment;
-  const userImgName = props.user + ".jpg";
-  const userImg = signingUp ? require("../img/userPhotos/anonymous.jpg") : require("../img/userPhotos/" + userImgName);
-  
-	return (
-    <Fragment>
-      <form onSubmit={handleSubmit} name="selfIntroForm" encType="multipart/form-data" >
-        <h2 className='h2mt0'>Personal Photo and Self-Introduction</h2>
-        <div className='vSpace5px' />
-        <img src= {userImg} className='photoImg'/>
-        <div className='browseInputLabel' >
-          Choose personal Photo
-          <input className='browseInput'
-            type="file"
-            name="selectedPhotoFile"
-            label="Select Photo File" 
-		        id="file-upload"
-            onChange={OnChooseUserPhoto}
-          />
-        </div>
+  // The changed photo will update when the page is next loaded
+  const handleImgFileChange = event => {
+    const selectedPhoto = event.target.files && event.target.files[0];
+	if (!selectedPhoto) {
+	  return;
+	}
+	event.target.value = null;
+	let userImgName = user.username + ".jpg";
+    let formData = new FormData();
+    formData.set("user", user.username);
+	formData.set("name", userImgName);
+    formData.set("selectedPhotoFile", selectedPhoto);
+    axios
+      .post("/api/uploadPhoto", formData)
+      .catch((errors) => {
+         console.log("Errors in handleImgFileChange: ", errors)
+      });
+	setUserPhoto(require("../img/userPhotos/" + user.username + ".jpg"));
+    setChangedPhoto(true);
+  }
+    try {
+	  setUserPhoto(require("../img/userPhotos/" + user.username + ".jpg"));
+	}
+	catch(err) {
+	  setUserPhoto(require("../img/userPhotos/anonymous.jpg"));
+	};
 
-          <div className='vSpace5px' />
-		      {changedPhoto ? (
-						<div className='label5'>Your new photo will be visible the next time you visit the site.</div>
-					) : null}
+	return (
+	<>
+    <div>
+      <h2 className='h2mt0'>Personal Photo and Self-Introduction</h2>
+      <div className='vSpace5px' />
+      <img key={Date.now()} src= {userPhoto} className='photoImg'/>
+	  <div>
+        <input 
+          type="file"
+          label="Select Photo File" 
+	      id="file-upload"
+	  	  ref={inputRef}
+          onChange={handleImgFileChange}
+		  style={{display: 'none'}}
+        />
+      </div>
+	  <div className='flexRow'>
+        <button onClick={handleChoosePhotoClick} className='buttonRounded200' >
+        Choose personal Photo </button>&nbsp;&nbsp; {changedPhoto ? (<h4> Your new photo will be visible the next time you visit the site.</h4>) : null }
+	  </div>
           <div className='vSpace5px' />
         &nbsp;&nbsp;
+    </div>
+	<div>
+      <form onSubmit={handleSubmit} name="selfIntroForm" encType="multipart/form-data" >
         <div className='inputColumn'>
           <textarea 
             name="selfIntro"
 		        className="mtgTypesTextArea"
-		        rows="8"
+		        rows="6"
 		        columns="30"
             form="selfIntroForm"
             defaultValue={beginningSelfIntroText}
             onChange={handleIntroTextChange}
-          />
-          <div className='vSpace5px' />
-          <button className='buttonRounded200' type="submit">
-            Enter Self-Intro
-          </button>
-          <div className='vSpace5px' />
-		      {selfIntroUpdated ? (
-           <div className='label5'>Self-intro text has been updated.</div>
-					) : null}
+        />
+        <div className='vSpace5px' />
+		<div className='flexRow'>
+           <button className='buttonRounded200' type="submit">
+           Enter Self-Intro
+              </button>&nbsp;&nbsp; {selfIntroUpdated ? (<h4> Self-intro text has been updated.</h4>) : null }
+          </div>
         </div>
       </form>
-
+	</div>
+	<div>
       <div className='vSpace10px'/>
       <div className='vSpace10px'/>
 
@@ -175,13 +169,13 @@ function UploadUserInfo(props) {
             <textarea 
 		          className='mtgTypesTextArea'
               name="mtgTypesArea"
-	            rows="1"
+	            rows="6"
 	            columns="30"
               form="mtgTypesForm"
-              defaultValue={props.mtg_types}
+              //defaultValue={props.user.mtg_types}
+              defaultValue={user.mtgTypes}
               onChange={handleMtgTypesChange}
             />
-
           <div className='vSpace5px' />
             <button className='buttonRounded200' type="submit" >
               Enter Meeting Types 
@@ -194,7 +188,8 @@ function UploadUserInfo(props) {
         <div className='vSpace5px' />
         <div className='vSpace5px' />
       </form>
-    </Fragment>
+    </div>
+	</>
   );
 }
 

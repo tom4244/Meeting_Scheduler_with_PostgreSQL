@@ -28,6 +28,7 @@ export const timezoneOffsetAtom = atom("");
 export const introTextAtom = atom("");
 export const userAtom = atom({firstname:"", lastname:"", roomname:"", username:"", mtgTypes:""});
 export const signingUpAtom = atom(false);
+export const userPhotoAtom = atom(null);
  
 const App = (props) => {
 	const [isAuthenticated, setIsAuthenticated] = useAtom(isAuthAtom);
