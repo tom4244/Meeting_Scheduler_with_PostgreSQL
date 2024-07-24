@@ -30,7 +30,7 @@ app.use(helmet({
 	contentSecurityPolicy: {
         //develop styles with reportOnly true, then
         //insert style hashes from devtools as required
-		//reportOnly: true,
+		reportOnly: true,
 		useDefaults: true,
 		directives: {
       'default-src': ["'self'", "http://localhost/bundle.js"],

@@ -5,6 +5,6 @@ export default {
 	socketAddr: 'http://localhost',
 	dbUser: 'postgres',
 	//dbPassword should be created and listed here
-	dbPassword: 'NULL'
+	dbPassword: 'postgres'
 }
 
