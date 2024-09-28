@@ -25,6 +25,7 @@ app.use(express.static(__dirname + '/static', { dotfiles: 'allow' } ));
 // use ws: for http and wss: for https
 // on remote site using https: 'connect-src': ["'self'", 'wss:'], 
 // on local site using http: 'connect-src': ["'self'", 'ws://localhost:3000'], 
+/*
 app.use(helmet({
 
 	contentSecurityPolicy: {
@@ -45,6 +46,7 @@ app.use(helmet({
 	},
 	
 }));
+*/
 // Enable 'trust proxy' if you're behind a reverse proxy (Heroku, Bluemix, Nginx, etc)
 // see https://expressjs.com/en/guide/behind-proxies.html
 // app.set('trust proxy', 1);

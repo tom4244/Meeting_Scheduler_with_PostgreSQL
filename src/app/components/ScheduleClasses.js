@@ -1098,10 +1098,19 @@ classDate + " for " + number_of_weeks + " week(s)");
         <select className='selectWide' value={mtg_types} onChange={handleChangeMtgType} >
           MtgType
           <option>New Project</option>
-          <option>QA</option>
-          <option>Daily Scrum</option>
+          <option>Quality Assurance</option>
+          <option>Scrum</option>
           <option>Test Engineering</option>
           <option>Firmware</option>
+          <option>Integration</option>
+          <option>Status</option>
+          <option>Safety</option>
+          <option>Current Action Items</option>
+          <option>Weekly progress</option>
+          <option>Planning</option>
+          <option>Qualification Test</option>
+          <option>Emergency</option>
+          <option>Special Event</option>
         </select>
       </div>
       <div className='vSpace10px' />

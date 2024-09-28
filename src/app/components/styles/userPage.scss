@@ -1,3 +1,5 @@
+@import "fonts";
+
 $huge: 10000px;
 $desktop: 1280px;
 $tablet: 1024px;  //dark green
@@ -12,7 +14,7 @@ $tiny: 330px;
 }
 
 .browseInputLabel {
-  for: "file-upload";
+  // for: "file-upload";
   display: flex;
   border: 0px solid black;
   background: DodgerBlue;
@@ -38,7 +40,7 @@ $tiny: 330px;
 .centeredText {
 	font-size: 1.6rem;
   font-family: 'Josefin Slab';
-  font-weight: regular;
+  font-weight: normal;
   color: blue;
 }
 
@@ -57,7 +59,6 @@ $tiny: 330px;
   border: 0px solid black;
   border-radius: 1px;
   cursor: pointer;
-  text-declaration: none;
 }
 
 .classList {
@@ -140,7 +141,9 @@ h2 {
 }
 
 .h2mt0 {
-	@expand h2;
+  font-family: "Quicksand";
+  color: blue;
+	margin-bottom: 0px;
 	margin-top: 0px;
 }
 
@@ -296,7 +299,7 @@ label {
   display: flex;
   height: 26px;
   width: 400px;
-  marginRight: 10px;
+  margin-right: 10px;
   font-family: Josefin Slab;
   font-size: 22px;
   @media (max-width: 500px) {
@@ -416,9 +419,9 @@ p {
 	@extend .buttonRounded;
   height: 45px;
   width: 140px;
-  marginBottom: 3px;
-  marginLeft: -10;
-  marginRight: 10;
+  margin-bottom: 3px;
+  margin-left: -10px;
+  margin-right: 10px;
 }
 
 .buttonRounded200 {
@@ -470,7 +473,6 @@ select {
   border: 0px solid black;
   border-radius: 1px;
   cursor: pointer;
-  text-declaration: none;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -494,7 +496,7 @@ select {
 	width: 40px;
 	margin-top: 0px;
 	margin-left: 20px;
-	align-items: right;
+	align-items: end;
 }
 
 .select4 {
@@ -551,8 +553,8 @@ textarea {
 .tRow {
   display: flex;
   flex-direction: row;
-  justify-content: spaced-evenly;
-  line-height: 8px;
+  // justify-content: space-evenly;
+  line-height: 12px;
   padding: 5px;
   color: Green;
   align-items: center;
@@ -571,6 +573,16 @@ textarea {
   font-size: 16px;
   @media (max-width: $phone) {
 		font-size: 12px;
+	}
+}
+
+.tWord_topic {
+  @extend .tWord;
+  font-size: 14px;
+  flex-wrap: wrap;
+  height: 40px;
+  @media (max-width: $phone) {
+		font-size: 10px;
 	}
 }
 

@@ -349,7 +349,7 @@ class ClassTable extends React.Component {
             </div>
           </div>
           <div className='tRow' key={"Topic" + row.id * 10}>
-            <div className='tWord' key={"subj" + row.mtg_types} style={{ flexBasis: "120px" }}>
+            <div className='tWord_topic' key={"subj" + row.mtg_types} style={{ flexBasis: "120px" }}>
               {row.mtg_types}
             </div>
           </div>

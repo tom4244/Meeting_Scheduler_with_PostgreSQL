@@ -1,3 +1,5 @@
+@import "fonts";
+
 $ScalePic: '../../img/horiz-res-reference.png';
 $LogoImagePic: '../../img/scheduler-101-blue.png';
 $LogoImagePicPink: '../../img/scheduler-101-pink.png';
@@ -12,7 +14,6 @@ $tiny: 330px;
 
 a {
   color: white;
-  text-declaration: none;
   cursor: pointer;
   &:hover {
     color: green;
@@ -27,7 +28,7 @@ body {
 .centeredText {
   font-size: 1.2rem;
   font-family: 'Josefin Slab';
-  font-weight: regular;
+  font-weight: normal;
   color: blue;
 }
 
@@ -142,7 +143,7 @@ header {
 
 .membership {
   display: flex;
-  flex-row: row wrap;
+  flex-flow: row wrap;
   flex: 0 auto;
   justify-content: flex-end;
 }

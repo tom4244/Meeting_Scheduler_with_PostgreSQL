@@ -112,6 +112,7 @@ export function login(data, res) {
 	  	localStorage.setItem('jwtToken', token);
 	  	setAuthorizationToken(token);
 	    const decodedToken = jwtDecode(token);	
+      // can I also get the exp time here?
 	  	const { id, username, iat } = decodedToken;
 	  	const person= {
 	  		id: id,

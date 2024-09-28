@@ -1,3 +1,4 @@
+/*
 import josefinSlabEOT from './josefin-slab-v18-latin-regular.eot';
 import josefinSlabWoff from './josefin-slab-v18-latin-regular.woff';
 import josefinSlabWoff2 from './josefin-slab-v18-latin-regular.woff2';
@@ -8,7 +9,7 @@ import quicksandWoff from './quicksand-v28-latin-regular.woff';
 import quicksandWoff2 from './quicksand-v28-latin-regular.woff2';
 import quicksandTTF from './quicksand-v28-latin-regular.ttf';
 import quicksandSVG from './quicksand-v28-latin-regular.svg';
-
+*/
 const GlobalStyle = createGlobalStyle`
     background-color: AliceBlue;
     @font-face {

@@ -1,3 +1,5 @@
+@import "fonts";
+
 $AspectRatio: 0.75;
 $huge: 10000px;
 $desktop: 1280px;
@@ -63,7 +65,7 @@ $px20Img: "../../img/20pix.png";
   padding: 0;
 	cursor: pointer;
   display: flex;
-  flex: row;
+  flex-direction: row;
   justify-content: center;
   &:hover {
     background-color: palegreen;
@@ -148,7 +150,7 @@ $px20Img: "../../img/20pix.png";
   display: flex;
   flex-direction: column;
   padding: 0px;
-  margins: 0px;
+  margin: 0px;
 }
 
 i {
@@ -183,7 +185,7 @@ i {
   height: 30px;
 	margin-left: 10px;
 	margin-right: 10px;
-	borderColor: blue;
+	border-color: blue;
 }
 
 .flexRow {
@@ -310,7 +312,7 @@ label {
   font-family: "Josefin Slab";
   font-size: 16px;
   font-weight: bold;
-  fontstyle: "italic";
+  font-style: italic;
   color: blue;
 }
 
@@ -396,7 +398,7 @@ label {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  width: 600;
+  width: 600px;
   max-width: 600px;
   margin-top: 5px;
   margin-bottom: 10px;

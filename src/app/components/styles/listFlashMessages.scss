@@ -1,3 +1,5 @@
+@import "fonts";
+
 $huge: 10000px;
 $desktop: 1280px;
 $tablet: 1024px;  //dark green
@@ -7,7 +9,7 @@ $tiny: 330px;
 
 .bar {
   display: flex;
-  flex-row: row wrap;
+  flex-flow: row wrap;
   margin-top: 0rem;
   margin-left: 3rem;
   margin-right: 3rem;
