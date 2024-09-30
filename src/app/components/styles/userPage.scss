@@ -217,6 +217,14 @@ label {
 	align-self: center;
 }
 
+.labelFlexEnd {
+  @extend label;
+  width: 104px;
+	margin-left: 10px;
+  margin-right: 0px;
+  align-items: flex-end;
+}
+
 .label2 {
 	@extend label;
   width: 84px;
@@ -260,10 +268,10 @@ label {
 
 .label9 {
   @extend label;
-  width: 84px;
+  width: 104px;
 	margin-left: 10px;
   margin-right: 0px;
-	align-items: flex-end;
+	align-items: center;
 }
 
 .label10 {

@@ -959,7 +959,7 @@ classDate + " for " + number_of_weeks + " week(s)");
 
       <div className='flexRow'>
         <div className='flexColumnRt'>
-          <label className='label9'>Hour</label>
+          <label className='labelFlexEnd'>Hour</label>
           <select className='select3'
             value={classHour}
             onChange={handleChangeHour}
@@ -1030,7 +1030,7 @@ classDate + " for " + number_of_weeks + " week(s)");
 
       <div className='flexRow'>
         <div className='flexColumnRt'>
-          <label className='label9'>Hour</label>
+          <label className='labelFlexEnd'>Hour</label>
           <select className='select3'
             value={classEndHour}
             onChange={handleChangeEndHour}
